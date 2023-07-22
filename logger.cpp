@@ -1,6 +1,9 @@
 #include "logger.h"
 #include <fstream>
 #include <iostream>
+#include <string>
+
+std::string msg_prefix = "Logger: ";
 
 Logger::Logger(const std::string& logdir, const std::string& logfile)
     : logfile(logfile), logdir(logdir) {}
@@ -14,12 +17,16 @@ void Logger::set_logdir(const std::string& logdir) {
 }
 
 void Logger::logtext(const std::string& message) {
-    std::ofstream file(logdir + "/" + logfile, std::ios::app);
-    if (file.is_open()) {
-        file << message;
-        file.close();
+    if (fp.is_open()) {
+        fp << message;
     } else {
-        std::cout << "Logger:: File can not be open.\n";
+        fp.open(logdir + "/" + logfile, std::ios::app);
+        if (!fp.is_open()){
+            std::cout<< msg_prefix + "Log file can not be opend.\n";
+        }else{
+            fp << message;
+            fp.close();
+        }
     }
 }
 
@@ -34,4 +41,24 @@ void Logger::set_time_2() {
 void Logger::loglaptime(const std::string& prefix, const std::string& suffix, int precision) {
     auto duration = std::chrono::duration_cast<std::chrono::seconds>(time_2 - time_1).count();
     lognumber(prefix, duration, suffix, precision);
+}
+
+void Logger::openfp(){
+    if (fp.is_open()){
+        std::cout<< msg_prefix + "Log file is already opend.\n";
+    }else{
+        fp.open(logdir + "/" + logfile, std::ios::app);
+        if (!fp.is_open()){
+            std::cout<< msg_prefix + "Log file can not be opend.\n";
+        }
+    }
+}
+
+void Logger::closefp(){
+    if (fp.is_open()){
+        fp.close();
+    }
+    else{
+        std::cout<< msg_prefix + "Log file is already closed.\n";
+    }
 }

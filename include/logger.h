@@ -4,6 +4,7 @@
 #include <chrono>
 #include <sstream>
 #include <iomanip>
+#include <fstream>
 
 class Logger {
 private:
@@ -11,6 +12,8 @@ private:
     std::string logdir;
     std::chrono::high_resolution_clock::time_point time_1;
     std::chrono::high_resolution_clock::time_point time_2;
+
+    std::ofstream fp;
 
 public:
     Logger(const std::string& logdir, const std::string& logfile);
@@ -23,6 +26,9 @@ public:
     void set_time_1();
     void set_time_2();
     void loglaptime(const std::string& prefix, const std::string& suffix, int precision);
+
+    void openfp();
+    void closefp();
 };
 
 template <typename T>
