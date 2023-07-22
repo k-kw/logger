@@ -22,3 +22,16 @@ void Logger::logtext(const std::string& message) {
         std::cout << "Logger:: File can not be open.\n";
     }
 }
+
+void Logger::set_time_1() {
+    time_1 = std::chrono::high_resolution_clock::now();
+}
+
+void Logger::set_time_2() {
+    time_2 = std::chrono::high_resolution_clock::now();
+}
+
+void Logger::log_laptime(const std::string& prefix, const std::string& suffix, int precision) {
+    auto duration = std::chrono::duration_cast<std::chrono::seconds>(time_2 - time_1).count();
+    logNumber(prefix, duration, suffix, precision);
+}
