@@ -2,8 +2,8 @@
 
 #include <string>
 #include <chrono>
-#include <sstream> // 追加
-#include <iomanip> // 追加
+#include <sstream>
+#include <iomanip>
 
 class Logger {
 private:
@@ -18,15 +18,15 @@ public:
     void set_logdir(const std::string& logdir);
     void logtext(const std::string& message);
     template <typename T>
-    void logNumber(const std::string& prefix, T number, const std::string& suffix, int precision);
+    void lognumber(const std::string& prefix, T number, const std::string& suffix, int precision);
 
     void set_time_1();
     void set_time_2();
-    void log_laptime(const std::string& prefix, const std::string& suffix, int precision);
+    void loglaptime(const std::string& prefix, const std::string& suffix, int precision);
 };
 
 template <typename T>
-void Logger::logNumber(const std::string& prefix, T number, const std::string& suffix, int precision) {
+void Logger::lognumber(const std::string& prefix, T number, const std::string& suffix, int precision) {
     std::ostringstream oss;
     oss << std::fixed << std::setprecision(precision) << number;
     logtext(prefix + oss.str() + suffix);
