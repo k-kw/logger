@@ -1,2 +1,0 @@
-/home/kawamoto/cprjct/mylibs/sos/liblogger.so
-/home/kawamoto/cprjct/mylibs/include/logger.h
