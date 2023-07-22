@@ -16,9 +16,9 @@ void Logger::set_logdir(const std::string& logdir) {
 void Logger::logtext(const std::string& message) {
     std::ofstream file(logdir + "/" + logfile, std::ios::app);
     if (file.is_open()) {
-        file << message << "\n";
+        file << message;
         file.close();
-    }else{
-        std::cout<<"Logger:: File can not be open.\n";
+    } else {
+        std::cout << "Logger:: File can not be open.\n";
     }
 }
